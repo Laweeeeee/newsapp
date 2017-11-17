@@ -18,12 +18,12 @@
 				<div>
 					<h2>{{v.title}}</h2>
 					<ol>
-						<li>{{v.tcount}}人浏览</li>
-						<li>{{v.ptime | time}}</li>
+						<!--<li>{{v.__ob__.value.reply_count}人浏览</li>-->
+						<!--<li>{{v.ptime | time}}</li>-->
 						<li>来源：{{v.source}}</li>
 					</ol>
 				</div>
-				<img :src="v.picInfo[0].url" alt="" />
+				<img :src="v.top_image" alt="" />
 			</li>
 			<li><p>已经到底了┓( ´∀` )┏</p></li>
 			<!--<li><button @click="get">按钮</button></li>-->
@@ -40,17 +40,21 @@
 			}
 		},
 		mounted(){
-			this.$http.jsonp("http://3g.163.com/touch/jsonp/sy/recommend/0-20.html",{
+			this.$http.jsonp("http://api.dagoogle.cn/news/get-news",{
 				params:{
 					
 				},jsonp:'callback'
 			}).then(function(res){
 				console.log(res);
 				
-				console.log(res.body.news);
-				this.list=res.body.news
+				console.log(res.body.data);
+				this.list=res.body.data
 			})
 			
+			
+			//http://3g.163.com/touch/jsonp/sy/recommend/0-9.html
+			//http://api.dagoogle.cn/news/get-news
+
 			
 		},
 		filters:{
