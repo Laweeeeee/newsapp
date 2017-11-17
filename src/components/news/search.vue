@@ -6,16 +6,16 @@
 	
 			<div class="ipt">
 				<input type="text" placeholder="大家都在搜" v-model="msg" @keyup="get"/>
-				
+				<!--<button @click="get">按钮</button>-->
 			</div>
 		</div>
 
 		
 		<ul class="searul">
 			<li v-for="v in list">
-				<h2>{{v.title}}</h2>
-				<img :src="v.image"/>
-				<p>时间：{{v.time}}</p>
+				<h2>{{v}}</h2>
+				<!--<img :src="v.image"/>-->
+				<!--<p>时间：{{v.time}}</p>-->
 			</li>
 			<li>已经到底了┐(‘～`；)┌ </li>
 		</ul>
@@ -37,14 +37,25 @@
 				this.$router.push("/headline")
 			},
 			get(){
-				this.$http.jsonp("http://sinanews.sina.cn/interface/type_of_search.d.html?callback",{
-					params:{
-						keyword:this.msg
-					},jsonp:"callback"
-				}).then(function(res){
-					console.log(res.body);
-					console.log(res.body.data);
-					this.list=res.body.data.feed1
+//				this.$http.jsonp("http://sinanews.sina.cn/interface/type_of_search.d.html?callback",{
+//					params:{
+//						keyword:this.msg
+//					},jsonp:"callback"
+//				}).then(function(res){
+//					console.log(res.body);
+//					console.log(res.body.data);
+//					this.list=res.body.data.feed1
+//				})
+				this.$http.jsonp("https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",{
+								params:{
+									wd:this.msg
+									
+								},jsonp:"cb"
+							}).then(function(res){
+								console.log(res.body)
+								console.log(res.body.s)
+								this.list=res.body.s
+								
 				})
 			}
 		},
